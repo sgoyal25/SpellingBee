@@ -18,7 +18,7 @@ public class Game {
 	
 	public Game(String sequence) {
 		seq = sequence.toUpperCase();
-		String site = "https://www.shunn.net/bee/?string="+seq;
+		String site = "https://www.shunn.net/bee/?string="+sequence;
 		try {
 			Response execute = Jsoup.connect(site).execute();
 			doc = Jsoup.parse(execute.body());

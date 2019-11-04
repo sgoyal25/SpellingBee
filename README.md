@@ -17,6 +17,8 @@ To run the program in command line:
 
 4. Run the following command:
    java -cp /path/to/lib/jsoup-1.12.1.jar SpellingBee
+   
+This project will eventually be updated to run as an applet, rather than through a command line.
 
 This is my first GitHub project, so feedback is appreciated!
 

@@ -16,7 +16,7 @@ To run the program in command line:
 3. In Command Prompt, set the working directory the src folder.
 
 4. Run the following command:
-   java -cp /path/to/lib/jsoup-1.12.1.jar SpellingBee
+   java -cp /path/to/lib/jsoup-1.12.1.jar;. SpellingBee
    
 This project will eventually be updated to run as an applet, rather than through a command line.
 

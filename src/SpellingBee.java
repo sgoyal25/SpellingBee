@@ -1,11 +1,17 @@
 //import java.util.ArrayList;
 //import java.util.List;
+import java.io.IOException;
 import java.util.Scanner;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.jsoup.Connection.Response;
 
 public class SpellingBee {
 
 	public static void alphabetize(int numWordsFound, String[] wordsFound) {
-
 		boolean swapped = false;
 
 		do {
@@ -38,8 +44,8 @@ public class SpellingBee {
 			// Get user input to begin game
 			boolean readyToStart = false;
 			do {
-				String[] validResponses = new String[] {"E", "R"};
-				String gameType = Game.askUserQuestion("Would you like to enter your own letters ('E') or play a random game from the archives ('R')?",validResponses, keyboard);
+				String[] validResponses = new String[] {"E", "R", "T"};
+				String gameType = Game.askUserQuestion("Would you like to enter your own letters ('E'), play today's game ('T'), or play a random game from the archives ('R')?",validResponses, keyboard);
 				//				String gameType = keyboard.nextLine().trim().toUpperCase();
 				//				if (gameType.equals("END")) {
 				//					quit = true;
@@ -48,7 +54,7 @@ public class SpellingBee {
 				//				if (gameType.equals("RULES")) {
 				//					Game.printRules();
 				//				}
-				if (gameType.equals("E")) {
+				if (gameType.contentEquals("E")) {
 					boolean validLtr = false;
 					// Check validity of initial letters.
 					while (!validLtr) {
@@ -69,6 +75,16 @@ public class SpellingBee {
 				else if (gameType.contentEquals("R")) {
 					//TODO: RANDOMLY GENERATE A SEQUENCE OF LETTERS FROM THE ARCHIVE
 					lettersStr = Game.getRandomSequence();
+				}
+				else if (gameType.contentEquals("T")) {
+					Document latest = null;
+					try {
+						Response execute = Jsoup.connect("https://www.shunn.net/bee/latest").execute();
+						latest = Jsoup.parse(execute.body());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}	
+					lettersStr = latest.select("input[type=\"text\"]").attr("value");
 				}
 
 				char center = 's';
